@@ -24,7 +24,7 @@ export function createAgent<T>(options: {
         throw new Error(`Unsupported model provider: ${options.model.provider}`)
     }
 
-    console.log(`Agent result:`, result)
+    console.log(`OpenAI Agent result:`, result)
     for (const toolCall of result.toolCalls) {
       const toolResult = await toolCall.tool.handler(toolCall.content, context || {})
       result.content += `\n\nTool ${toolCall.tool.name} result: ${JSON.stringify(toolResult)}`

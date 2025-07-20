@@ -39,7 +39,7 @@ export interface Network<T = any> {
   state: StateKV<T>
   router: RouterFunction<T> | Agent<T>
   history: Message[]
-  run(input: string): Promise<any>
+  run(input: string): Promise<Message[]>
 }
 
 export interface StateKV<T = any> {

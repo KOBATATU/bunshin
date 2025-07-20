@@ -18,7 +18,7 @@ export function createNetwork<T>(options: {
   const history: Message[] = []
   const maxIter = options.options?.maxIter || 10
 
-  const run = async (input: string): Promise<any> => {
+  const run = async (input: string): Promise<Message[]> => {
     const threadId = (await historyAdapter.createThread?.()) || 'default'
     history.push({ role: 'user', content: input })
 
@@ -36,6 +36,7 @@ export function createNetwork<T>(options: {
       } else {
         nextAgent = (options.router as RouterFunction<T>)({ network })
       }
+
       if (!nextAgent) break
       const result = await nextAgent.invoke(input, { network })
       // historyにmodel結果を追加
@@ -43,7 +44,7 @@ export function createNetwork<T>(options: {
     }
 
     await historyAdapter.appendResults(threadId, history)
-    return history[history.length - 1].content
+    return history
   }
 
   const network: Network<T> = {

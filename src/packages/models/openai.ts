@@ -51,6 +51,7 @@ export async function invokeOpenAI<T>(
     })),
     ...config.defaultParameters,
   })
+  console.log('OpenAI response:', response.choices[0].message.tool_calls?.length)
   console.log('OpenAI response:', response.choices[0].message.tool_calls)
 
   const result: InterfaceResult = {
